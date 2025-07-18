@@ -83,7 +83,7 @@ export default function Home() {
         return (
           <p className="flex items-center gap-2">
             <QuestionMarkCircleIcon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-            Es konnte keine mögliche Verbindung von Gauting nach Murnau gefunden werden :'(
+            Es konnte keine mögliche Verbindung von Gauting nach Murnau gefunden werden :&apos;(
           </p>
         );
     }
