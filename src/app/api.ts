@@ -46,7 +46,8 @@ const connections = new ConnectionsApi(connectionsConfiguration);
 export type ConnectionInfo = {
     departureTransport?: MinimalTransport,
     destinationTransport?: MinimalTransport,
-    status: ConnectionStatus
+    status: ConnectionStatus,
+    diff: number,
 }
 
 export type MinimalTransport = {
@@ -62,13 +63,17 @@ export async function checkConnection(): Promise<ConnectionInfo> {
     });
     if (!nextDepartureToDestination) {
         console.log("No departure found to destination station");
-        return Promise.resolve({status: ConnectionStatus.Unknown})
+        return Promise.resolve({status: ConnectionStatus.Unknown, diff: -1})
     }
     console.log("Next departure to destination station: " + nextDepartureToDestination.transport.number);
 
     const availableConnections = await connections.connectionsArrival(
         nextDepartureToDestination.journeyID,
-        `${changeStation}_A_1`
+        `${changeStation}_A_1`,
+        undefined,
+        undefined,
+        undefined,
+        false
     );
 
     const nextRelevantConnection = availableConnections.connections?.find(connection => {
@@ -86,8 +91,11 @@ export async function checkConnection(): Promise<ConnectionInfo> {
         };
     }
 
+    const diff = (nextRelevantConnection?.time?.getTime() ?? 0) - (availableConnections.arrivalTime ?? Date()).getTime();
+
     return Promise.resolve({
         status: status,
+        diff: diff,
         departureTransport: {
             displayName: nextDepartureToDestination.transport.journeyDescription,
             departureTime: nextDepartureToDestination.time,

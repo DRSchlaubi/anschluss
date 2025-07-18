@@ -68,7 +68,7 @@ export default function Home() {
           <p className="flex items-center gap-2">
             <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
             {transport1Name} erreicht {transport2Name} vielleicht, aber vielleicht auch nicht,
-            also beeil dich!
+            also beeil dich, du hast nur noch {connectionStatus.diff / 1000 / 60} Minuten!
           </p>
         );
       case 'IMPOSSIBLE':
