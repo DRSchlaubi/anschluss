@@ -56,7 +56,7 @@ export type MinimalTransport = {
 }
 
 export async function checkConnection(): Promise<ConnectionInfo> {
-    const departures: Array<StopDeparture> = (await boards.boardDeparture([startStation])).departures
+    const departures: Array<StopDeparture> = (await boards.boardDeparture([startStation], Date())).departures
     const nextDepartureToDestination: StopDeparture | undefined = departures.find(departure => {
         return departure.transport.destination.evaNumber === changeStation
     });
