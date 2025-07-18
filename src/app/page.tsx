@@ -119,7 +119,7 @@ export default function Home() {
           <p className="text-gray-500 dark:text-gray-400 mt-2">Loading connection status...</p>
         </div>
       ) : (
-        <div className="w-full max-w-md p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg text-center">
+        <div className="p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg text-center inline-block">
           {renderMessage()}
         </div>
       )}
